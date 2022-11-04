@@ -1,14 +1,56 @@
-import { ConnectButton } from "@rainbow-me/rainbowkit";
-import type { NextPage } from "next";
-import Head from "next/head";
-import { useSigner, useProvider } from "wagmi";
+import { ConnectButton } from '@rainbow-me/rainbowkit'
+import type { NextPage } from 'next'
+import Head from 'next/head'
+import { useSigner, useProvider } from 'wagmi'
+import { SplitsClient } from '@0xsplits/splits-sdk'
+import { Button, Heading } from '@chakra-ui/react'
 
-import styles from "../styles/Home.module.css";
+import styles from '../styles/Home.module.css'
+
+const mumbaiChainId = 80001
 
 const Home: NextPage = (test: any) => {
-  const { data, error, isLoading, refetch } = useSigner();
-  const provider = useProvider();
-  console.log("signer and provider", { signer: data, provider });
+  const { data, error, isLoading, refetch } = useSigner()
+  const signer = data
+  const provider = useProvider()
+  console.log('signer and provider', { signer: data, provider })
+
+  const splitsClient = new SplitsClient({
+    chainId: mumbaiChainId,
+    provider,
+    signer: signer || undefined,
+  })
+
+  const args = {
+    recipients: [
+      {
+        address: '...recepient add. 1',
+        percentAllocation: 50.0,
+      },
+      {
+        address: '...recepient add. 2',
+        percentAllocation: 50.0,
+      },
+    ],
+    distributorFeePercent: 1.0,
+    controller: '...controller address',
+  }
+
+  const createSplit = async () => {
+    if (signer) {
+      try {
+        const response = await splitsClient.createSplit(args)
+        window.alert(JSON.stringify(response, null, 2))
+        console.log('Response', JSON.stringify(response, null, 2))
+      } catch (e: any) {
+        window.alert(e)
+        console.log('Error', e)
+      }
+    } else {
+      window.alert('Please sign in')
+    }
+  }
+
   return (
     <div className={styles.container}>
       <Head>
@@ -21,69 +63,28 @@ const Home: NextPage = (test: any) => {
       </Head>
 
       <main className={styles.main}>
-        <ConnectButton />
-
-        <h1 className={styles.title}>
-          Welcome to <a href="">RainbowKit</a> + <a href="">wagmi</a> +{" "}
-          <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{" "}
-          <code className={styles.code}>pages/index.tsx</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://rainbowkit.com" className={styles.card}>
-            <h2>RainbowKit Documentation &rarr;</h2>
-            <p>Learn how to customize your wallet connection flow.</p>
-          </a>
-
-          <a href="https://wagmi.sh" className={styles.card}>
-            <h2>wagmi Documentation &rarr;</h2>
-            <p>Learn how to interact with Ethereum.</p>
-          </a>
-
-          <a
-            href="https://github.com/rainbow-me/rainbowkit/tree/main/examples"
-            className={styles.card}
-          >
-            <h2>RainbowKit Examples &rarr;</h2>
-            <p>Discover boilerplate example RainbowKit projects.</p>
-          </a>
-
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h2>Next.js Documentation &rarr;</h2>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
-            className={styles.card}
-          >
-            <h2>Next.js Examples &rarr;</h2>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h2>Deploy &rarr;</h2>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
+        <div>
+          <ConnectButton />
+        </div>
+        <div>
+          <Button onClick={createSplit}>Create Split</Button>
+        </div>
+        <div>
+          <Heading size="lg" textAlign="center">
+            Configs I am using
+          </Heading>
+          <Heading size="md">Recepients</Heading>
+          <p className={styles.configs}>
+            {JSON.stringify(args.recipients, null, 2)}
+          </p>
+          <Heading size="md">Controller</Heading>
+          <p className={styles.configs}>
+            {JSON.stringify(args.controller, null, 2)}
+          </p>
         </div>
       </main>
-
-      <footer className={styles.footer}>
-        <a href="https://rainbow.me" target="_blank" rel="noopener noreferrer">
-          Made with ❤️ by your frens at 🌈
-        </a>
-      </footer>
     </div>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home

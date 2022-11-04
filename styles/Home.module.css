@@ -12,6 +12,10 @@
   align-items: center;
 }
 
+.main > div {
+  margin: 20px 0px;
+}
+
 .footer {
   display: flex;
   flex: 1;
@@ -99,4 +103,8 @@
     width: 100%;
     flex-direction: column;
   }
+}
+
+.configs {
+  max-width: 600px;
 }
