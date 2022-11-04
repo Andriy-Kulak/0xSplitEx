@@ -1,5 +1,7 @@
 ## 0xSplit Example
 
+- This is a basic example with rainbow kit, wagmi, 0xSplits
+
 Using:
 
 - [RainbowKit](https://rainbowkit.com)
