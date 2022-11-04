@@ -3,6 +3,7 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import { useSigner, useProvider } from 'wagmi'
 import { SplitsClient } from '@0xsplits/splits-sdk'
+import { Button, Heading } from '@chakra-ui/react'
 
 import styles from '../styles/Home.module.css'
 
@@ -23,24 +24,24 @@ const Home: NextPage = (test: any) => {
   const args = {
     recipients: [
       {
-        address: '0xd439d0FBBB1541083Bc4F4b589724005796AE604',
+        address: 'recepient add. 1',
         percentAllocation: 50.0,
       },
       {
-        address: '0xD20103EBaF92296fEFE18Db36A7ce95148Cd666F',
+        address: 'recepient add. 2',
         percentAllocation: 50.0,
       },
     ],
     distributorFeePercent: 1.0,
-    controller: '0x6CbC2d39BA905b44a5876FdBf6C053Fa57dfc887',
+    controller: 'controller address',
   }
 
   const createSplit = async () => {
     if (signer) {
       try {
         const response = await splitsClient.createSplit(args)
-        console.log(JSON.stringify(response, null, 2))
         window.alert(response)
+        console.log('Response', JSON.stringify(response, null, 2))
       } catch (e: any) {
         window.alert(e)
         console.log('Error', e)
@@ -49,6 +50,7 @@ const Home: NextPage = (test: any) => {
       window.alert('Please sign in')
     }
   }
+
   return (
     <div className={styles.container}>
       <Head>
@@ -61,19 +63,25 @@ const Home: NextPage = (test: any) => {
       </Head>
 
       <main className={styles.main}>
-        <ConnectButton />
-
-        <button onClick={createSplit}>Create Split</button>
-
-        <h2>Configs I am using</h2>
-        <h4>Recepients</h4>
-        <p className={styles.configs}>
-          {JSON.stringify(args.recipients, null, 2)}
-        </p>
-        <h4>Controller</h4>
-        <p className={styles.configs}>
-          {JSON.stringify(args.controller, null, 2)}
-        </p>
+        <div>
+          <ConnectButton />
+        </div>
+        <div>
+          <Button onClick={createSplit}>Create Split</Button>
+        </div>
+        <div>
+          <Heading size="lg" textAlign="center">
+            Configs I am using
+          </Heading>
+          <Heading size="md">Recepients</Heading>
+          <p className={styles.configs}>
+            {JSON.stringify(args.recipients, null, 2)}
+          </p>
+          <Heading size="md">Controller</Heading>
+          <p className={styles.configs}>
+            {JSON.stringify(args.controller, null, 2)}
+          </p>
+        </div>
       </main>
     </div>
   )

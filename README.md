@@ -1,14 +1,18 @@
 ## 0xSplit Example
 
 - This is a basic example with rainbow kit, wagmi, 0xSplits
+- it works for creating split with Polygon Mumbai.
 
 Using:
 
+- [0xSplits](https://www.0xsplits.xyz/)
 - [RainbowKit](https://rainbowkit.com)
-- [wagmi](https://wagmi.sh)
+  - use this to log in with your wallet and test the app
+- [wagmi](https://wagmi.sh) for hooks
 - [Next.js](https://nextjs.org/)
 - bootstrapped with [`create-rainbowkit`](https://github.com/rainbow-me/rainbowkit/tree/main/packages/create-rainbowkit)
 - added basic prettier configs
+- chakra ui for component library
 
 ## Getting Started
 
@@ -20,10 +24,26 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+You should be able to log in on mumbai polygon test net. If you don't have it, please add mumbai test net using [chainlist](https://chainlist.org/)
 
-## Deploy on Vercel
+In `pages/index.tsx` adjust the configs of recepients and controller before clicking "Create Split"
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```ts
+// ...
+const args = {
+  recipients: [
+    {
+      address: 'recepient add. 1',
+      percentAllocation: 50.0,
+    },
+    {
+      address: 'recepient add. 2',
+      percentAllocation: 50.0,
+    },
+  ],
+  distributorFeePercent: 1.0,
+  controller: 'controller address',
+}
+```
 
-Check out the [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Adjusting Configs

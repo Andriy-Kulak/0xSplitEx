@@ -12,6 +12,10 @@
   align-items: center;
 }
 
+.main > div {
+  margin: 20px 0px;
+}
+
 .footer {
   display: flex;
   flex: 1;
