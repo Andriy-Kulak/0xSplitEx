@@ -26,6 +26,8 @@ npm run dev
 
 3. You should be able to log in with wallet on mumbai polygon test net. If you don't have it, please add mumbai test net using [chainlist](https://chainlist.org/)
 
+Also if you don't have any test `MATIC` add some at [polygon faucet](https://faucet.polygon.technology/)
+
 4. In `pages/index.tsx` adjust the configs of recepients and controller
 
 ```ts

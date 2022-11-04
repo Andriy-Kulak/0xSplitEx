@@ -24,23 +24,23 @@ const Home: NextPage = (test: any) => {
   const args = {
     recipients: [
       {
-        address: 'recepient add. 1',
+        address: '...recepient add. 1',
         percentAllocation: 50.0,
       },
       {
-        address: 'recepient add. 2',
+        address: '...recepient add. 2',
         percentAllocation: 50.0,
       },
     ],
     distributorFeePercent: 1.0,
-    controller: 'controller address',
+    controller: '...controller address',
   }
 
   const createSplit = async () => {
     if (signer) {
       try {
         const response = await splitsClient.createSplit(args)
-        window.alert(response)
+        window.alert(JSON.stringify(response, null, 2))
         console.log('Response', JSON.stringify(response, null, 2))
       } catch (e: any) {
         window.alert(e)
