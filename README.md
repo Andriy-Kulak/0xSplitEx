@@ -12,38 +12,38 @@ Using:
 - [Next.js](https://nextjs.org/)
 - bootstrapped with [`create-rainbowkit`](https://github.com/rainbow-me/rainbowkit/tree/main/packages/create-rainbowkit)
 - added basic prettier configs
-- chakra ui for component library
+- [chakra ui](https://chakra-ui.com/) for component library
 
 ## Getting Started
 
-First, run the development server:
+1. First, run the development server:
 
 ```bash
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You should be able to log in on mumbai polygon test net. If you don't have it, please add mumbai test net using [chainlist](https://chainlist.org/)
+3. You should be able to log in with wallet on mumbai polygon test net. If you don't have it, please add mumbai test net using [chainlist](https://chainlist.org/)
 
-In `pages/index.tsx` adjust the configs of recepients and controller before clicking "Create Split"
+4. In `pages/index.tsx` adjust the configs of recepients and controller
 
 ```ts
 // ...
 const args = {
   recipients: [
     {
-      address: 'recepient add. 1',
+      address: '...recepient add. 1',
       percentAllocation: 50.0,
     },
     {
-      address: 'recepient add. 2',
+      address: '...recepient add. 2',
       percentAllocation: 50.0,
     },
   ],
   distributorFeePercent: 1.0,
-  controller: 'controller address',
+  controller: '...controller address',
 }
 ```
 
-## Adjusting Configs
+5. Once updated, you can click "Create Split"
